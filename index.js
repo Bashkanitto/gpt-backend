@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: "*",
+  origin: "https://mentally.kz",
   credentials: true,
   optionSuccessStatus: 200,
 };
