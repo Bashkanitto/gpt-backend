@@ -9,6 +9,7 @@ app.use(express.json());
 
 const corsOptions = {
   origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionSuccessStatus: 200,
 };
@@ -25,6 +26,14 @@ const openai = new OpenAI({
 
 app.post("/api/request", async (req, res) => {
   const { prompt } = req.body;
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Max-Age", "1800");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
+  );
 
   try {
     const response = await openai.chat.completions.create({
