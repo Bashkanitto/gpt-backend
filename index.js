@@ -14,24 +14,23 @@ const openai = new OpenAI({
 });
 
 app.get("/", (req, res) => {
-  res.json("aidyn");
+  res.json({ success: true });
 });
 
 app.post("/api/request", async (req, res) => {
   const { prompt } = req.body;
-  console.log("prompt: ", prompt);
 
   try {
     const response = await openai.chat.completions.create({
       messages: [
         {
           role: "system",
-          content: `hello`,
+          content: prompt,
         },
       ],
       model: "gpt-3.5-turbo-16k",
     });
-    res.json({ response: response.data.choices[0].text });
+    res.json(response);
   } catch (error) {
     console.error("Error contacting OpenAI:", error);
     res.status(500).json({ error: error.message });
